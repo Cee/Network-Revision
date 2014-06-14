@@ -1,4 +1,4 @@
-#Routing Protocols - RIP & OSPF
+08#Routing Protocols - RIP & OSPF
 
 ###RIPv1/RIPv2
 
@@ -98,4 +98,47 @@
 	
 	- DR(Designated Router) / BDR(Backup Designated Router)
 	
-*to be continued on p30*	
++ OSPF Areas
+
+	- Defined with 32 bits number
+	
+	- Area 0 / Area 0.0.0.0
+	
+	- Use a 2 level hierarchical model
+	
+	- All areas are required to connect to Area 0
+	
++ OSPF Operations
+
+	- Neighbour adjacencies
+	
+	- **Five Steps(Slides: pp31-36)**
+	
+		+ Set up the adjacency relationships
+		
+		+ Elect DR(Designated Router) and BDR(Backup Designated Router) (if needed)
+
+		+ Discover the routes
+
+		+ Choose appropriate routes
+
+		+ Maintain the route information
+		
+	- Seven States: Init, 2Way, Ex Start, Exchange, Loading, Full
+	
++ OSPF Packets
+
+	- Hello
+	
+		+ Addressed to 224.0.0.5
+		
+		+ Sent every 10 seconds, broadcast multi-access and point-to-point
+		+ NBMA networks(Nonbroadcast Multiple Access), default time is 30 seconds
+	
+	- Database Description(DBD)
+	
+	- Link-State Request(LSR)
+	
+	- Link-State Update(LSU)
+	
+	- Link-State Acknowledgement(LSAck)
