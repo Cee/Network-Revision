@@ -112,7 +112,7 @@
 
 	- Neighbour adjacencies
 	
-	- **Five Steps(Slides: pp31-36)**
+	- **Five Steps(Slides: pp31-36, pp42-55)**
 	
 		+ Set up the adjacency relationships
 		
@@ -129,12 +129,7 @@
 + OSPF Packets
 
 	- Hello
-	
-		+ Addressed to 224.0.0.5
 		
-		+ Sent every 10 seconds, broadcast multi-access and point-to-point
-		+ NBMA networks(Nonbroadcast Multiple Access), default time is 30 seconds
-	
 	- Database Description(DBD)
 	
 	- Link-State Request(LSR)
@@ -142,3 +137,80 @@
 	- Link-State Update(LSU)
 	
 	- Link-State Acknowledgement(LSAck)
+	
++ Hello Protocol
+
+	- Addressed to 224.0.0.5
+		
+	- Sent every 10 seconds, broadcast multi-access and point-to-point
+
+	- NBMA networks(Nonbroadcast Multiple Access), default time is 30 seconds
+	
+	- Type Field: 1
+	
++ Set DR & BDR
+	
+	- Priority + Router ID, the biggest is DR, the second biggest is BDR
+	
+	- Priority: 1-255(Default: 1)
+	
++ **Steps in the Operation of OSPF(Slides: pp42-55)**
+
+	- If a new OSPF router joins the network with a higher priority or router ID, the current DR and BDR **do not change**
+	
++ Configure
+
+	- Enable OSPF
+			
+			Router(config)# router ospf process-id
+			
+		+ Value: 1 - 65535
+ 
+ 		+ Identify multiple OSPF processes on one router
+ 		
+ 		+ Usually keep the same process ID throughout the entire AS
+
+	- Identify IP networks
+		
+			Router(config-router)# network address wildcard-mask area area-id
+
+	- Configuring a Loopback Address
+	
+			Router(config)# interface loopback number
+			Router(config-if)# ip address address subnet-mask
+			
+		+ No shutdown command is not needed
+		
+		+ When configuring loopbacks, use a /32 mask to avoid potential routing problems
+	
+	- DR/BDR elections
+	
+			Router(config-if)# ip ospf priority number
+			
+		+ Value: 0 - 255, 0 indicates an interface cannot be elected
+		
+	- Show priority
+	
+			Router# show ip ospf [interface type number]
+			
+	- Path Cost
+	
+			Router(config-if)# ip ospf cost number
+			
+		+ number: 1 - 65535(default: 1784, 56Kbps bandwidth)
+		
+		+ Specify the real link speed(Kbps)
+		
+				Router(config-if)# bandwidth number
+				
+	- Set Timers
+	
+		+ Default: 10 seconds for T1 or greater and 30 seconds for links with less than T1, and Dead interval = 4 * hello interval
+		
+				Router(config-if)# ip ospf hello-interval seconds
+				Router(config-if)# ip ospf dead-interval seconds
+				
+	- Propagating a Default Route
+	
+			Router(config)# ip route 0.0.0.0 0.0.0.0 [interface | next-hop address]
+			Router(config-router)# default-information originate
