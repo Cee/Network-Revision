@@ -1,4 +1,4 @@
-08#Routing Protocols - RIP & OSPF
+#Routing Protocols - RIP & OSPF
 
 ###RIPv1/RIPv2
 
